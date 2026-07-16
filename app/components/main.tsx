@@ -426,7 +426,7 @@ export default function Main() {
       )}
       <div
         className="pl-4 flex flex-col"
-        style={{ height: "calc(100vh - 64px)" }}
+        style={{ height: "calc(100dvh - 64px)" }}
       >
         <div className="flex justify-between shrink-0 mt-1">
           <div>
