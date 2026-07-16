@@ -108,7 +108,8 @@ export default function FileUpload({
       el.click();
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      toast.error(`Couldn't upload the PDF: ${msg}`, { id: toastId });
+      // toast.error(`Couldn't upload the PDF: ${msg}`, { id: toastId });
+      alert(`Couldn't upload the PDF: ${msg}`);
     }
   };
   return (
