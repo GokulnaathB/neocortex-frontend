@@ -177,7 +177,7 @@ export default function ChatComponent() {
           placeholder="Type your query here"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="hover:border-blue-950 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-950 w-[30vw]"
+          className="hover:border-blue-950 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-950 w-[60vw] md:w-[40vw] lg:w-[30vw]"
         />
         <Button
           disabled={!query.trim() || !currSessionId}
