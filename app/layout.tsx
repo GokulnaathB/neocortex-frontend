@@ -1,6 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
+import {
+  ClerkProvider,
+  Show,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { Toaster } from "react-hot-toast";
+import { ToasterProvider } from "./toasterProvider";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +35,47 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+    <ClerkProvider>
+      <html
+        lang="en"
+        className={cn(
+          "h-full",
+          "overflow-hidden",
+          "antialiased",
+          geistSans.variable,
+          geistMono.variable,
+          "font-sans",
+          inter.variable,
+        )}
+      >
+        <body className="h-full flex flex-col overflow-hidden">
+          <ToasterProvider />
+          <header className="flex justify-between items-center p-4 gap-4 h-16 sticky top-0 z-50 bg-linear-to-r from-indigo-600 via-violet-600 to-purple-600 shadow-lg">
+            <h1 className="text-xl font-bold tracking-tighter">
+              <span className="text-white">Neo</span>
+              <span className="text-violet-200">cortex</span>
+            </h1>
+            <div className="flex items-center gap-4">
+              <Show when="signed-out">
+                <SignInButton>
+                  <button className="rounded-full text-white font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                    Sign In
+                  </button>
+                </SignInButton>
+                <SignUpButton>
+                  <button className="bg-white text-#6c47ff rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer hover:bg-violet-100 transition">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
+            </div>
+          </header>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
