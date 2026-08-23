@@ -180,7 +180,7 @@ export default function ChatComponent() {
           className="hover:border-blue-950 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-950 w-[60vw] md:w-[40vw] lg:w-[30vw]"
         />
         <Button
-          disabled={!query.trim() || !currSessionId}
+          disabled={!query.trim() || !currSessionId || isFetching}
           onClick={() => {
             handleSendQueryToRAG(query);
           }}
