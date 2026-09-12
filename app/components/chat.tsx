@@ -45,7 +45,13 @@ export default function ChatComponent() {
       const data = await res.json();
       setQuery("");
       if (!res.ok) {
-        toast.error(data.error || "Something went wrong");
+        if (res.status === 429) {
+          toast.error(
+            "You can send only two messages per minute. Wait a minute before you send another.",
+          );
+        } else {
+          toast.error(data.error || "Something went wrong");
+        }
         setIsFetching(false);
         return;
       }
